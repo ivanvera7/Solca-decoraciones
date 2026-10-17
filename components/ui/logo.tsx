@@ -8,7 +8,7 @@ type LogoProps = {
   showWordmark?: boolean;
 };
 
-export function Logo({ variant = "dark", className, showWordmark = true }: LogoProps) {
+export function Logo({ variant = "light", className, showWordmark = true }: LogoProps) {
   const src = showWordmark
     ? variant === "dark"
       ? "/logo/logo-dark.png"
@@ -20,9 +20,8 @@ export function Logo({ variant = "dark", className, showWordmark = true }: LogoP
   return (
     <Link
       href="#inicio"
-      aria-label="SOLCA Decoraciones — Inicio"
+      aria-label="SOLCA Decoraciones, ir al inicio"
       className={cn("relative inline-flex items-center", className)}
-      data-cursor-hover
     >
       <Image
         src={src}

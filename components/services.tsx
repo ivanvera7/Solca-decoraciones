@@ -1,81 +1,82 @@
 "use client";
 
-import { Sofa, Sparkles, Gift, Compass, ArrowUpRight, type LucideIcon } from "lucide-react";
+import Image from "next/image";
+import { ArrowUpRight } from "lucide-react";
 import { ScrollReveal } from "@/components/ui/scroll-reveal";
 import { RevealText } from "@/components/ui/reveal-text";
-import { FloralSprig } from "@/components/ui/floral-sprig";
-import { Button } from "@/components/ui/button";
-import { SERVICES, type Service } from "@/lib/constants";
+import { SERVICES } from "@/lib/constants";
+import { cn } from "@/lib/utils";
 
-const ICONS: Record<Service["icon"], LucideIcon> = {
-  sofa: Sofa,
-  sparkles: Sparkles,
-  gift: Gift,
-  compass: Compass,
-};
+// Bento slots, one per service (in SERVICES order): one tall hero tile, one wide, two small.
+const SLOTS = [
+  "lg:col-span-6 lg:row-span-2 min-h-[26rem]",
+  "lg:col-span-6 min-h-[20rem]",
+  "lg:col-span-3 min-h-[20rem]",
+  "lg:col-span-3 min-h-[20rem]",
+];
 
 export function Services() {
   return (
-    <section id="servicios" className="section-py bg-stone-50">
-      <div className="container-px mx-auto grid max-w-content gap-14 lg:grid-cols-12 lg:gap-12">
-        <div className="lg:col-span-5">
-          <div className="lg:sticky lg:top-32">
-            <ScrollReveal>
-              <p className="mb-5 flex items-center gap-2 text-xs font-medium uppercase tracking-widest2 text-gold-dark">
-                <FloralSprig className="h-4 w-auto" />
-                Servicios
-              </p>
-            </ScrollReveal>
-            <ScrollReveal delay={0.05}>
-              <h2 className="font-display text-4xl leading-[1.05] tracking-[-0.01em] text-ink sm:text-5xl lg:text-6xl">
-                <RevealText text="Un servicio integral, pensado en cada detalle." accentWords={2} />
-              </h2>
-            </ScrollReveal>
-            <ScrollReveal delay={0.15}>
-              <p className="text-pretty mt-7 max-w-sm text-[15px] font-light leading-relaxed text-stone-600">
-                Del primer boceto al último globo: nos ocupamos de todo para que tú solo
-                disfrutes el resultado.
-              </p>
-              <div className="mt-10">
-                <Button href="#contacto" variant="secondary">
-                  Consultar disponibilidad
-                </Button>
-              </div>
-            </ScrollReveal>
-          </div>
-        </div>
+    <section id="servicios" className="section-py">
+      <div className="container-px mx-auto max-w-content">
+        <h2 className="max-w-3xl font-display text-[clamp(2.4rem,5vw,4.5rem)] font-semibold leading-[1] tracking-[-0.04em] text-bone">
+          <RevealText text="Un servicio integral, pensado en cada detalle." accentWords={2} />
+        </h2>
 
-        <div className="border-t border-stone-300 lg:col-span-7">
-          {SERVICES.map((service, i) => {
-            const Icon = ICONS[service.icon];
-            return (
-              <ScrollReveal key={service.title} delay={i * 0.06} blur={false}>
-                <article className="group border-b border-stone-300">
-                  <a
-                    href="#contacto"
-                    data-cursor-hover
-                    className="grid grid-cols-[3rem_1fr_auto] items-start gap-x-4 py-9 transition-colors duration-500 sm:grid-cols-[4.5rem_1fr_auto] sm:py-11"
+        <div className="mt-14 grid gap-4 lg:mt-20 lg:grid-cols-12 lg:grid-rows-[20rem_20rem]">
+          {SERVICES.map((service, i) => (
+            <ScrollReveal key={service.title} delay={(i % 2) * 0.08} className={cn("flex", SLOTS[i])}>
+              <a
+                href="#contacto"
+                aria-label={`${service.title}: pedir presupuesto`}
+                className={cn(
+                  "group relative flex w-full flex-col justify-end overflow-hidden rounded-3xl border border-line p-7 sm:p-8",
+                  service.image ? "bg-night-2" : "bg-rose text-night"
+                )}
+              >
+                {service.image && (
+                  <>
+                    <Image
+                      src={service.image}
+                      alt=""
+                      fill
+                      sizes="(min-width: 1024px) 50vw, 100vw"
+                      className="object-cover transition-transform duration-[1200ms] ease-premium group-hover:scale-[1.05]"
+                    />
+                    <div className="absolute inset-0 bg-gradient-to-t from-night via-night/55 to-night/5" />
+                  </>
+                )}
+
+                <span
+                  className={cn(
+                    "absolute right-6 top-6 flex h-11 w-11 items-center justify-center rounded-full transition-transform duration-500 ease-premium group-hover:rotate-45",
+                    service.image ? "bg-bone text-night" : "bg-night text-rose"
+                  )}
+                >
+                  <ArrowUpRight size={18} strokeWidth={1.8} />
+                </span>
+
+                <div className="relative">
+                  <h3
+                    className={cn(
+                      "font-display text-2xl font-semibold leading-tight tracking-[-0.02em] sm:text-3xl",
+                      service.image ? "text-bone" : "text-night"
+                    )}
                   >
-                    <span className="pt-2 font-display text-lg italic text-gold-dark tabular-nums">
-                      {String(i + 1).padStart(2, "0")}
-                    </span>
-                    <div>
-                      <h3 className="font-display text-2xl leading-tight text-ink transition-transform duration-500 ease-premium group-hover:translate-x-2 sm:text-[2rem]">
-                        {service.title}
-                      </h3>
-                      <p className="text-pretty mt-3 max-w-lg text-sm font-light leading-relaxed text-stone-500 sm:text-[15px]">
-                        {service.description}
-                      </p>
-                    </div>
-                    <span className="mt-1 flex h-11 w-11 items-center justify-center rounded-full border border-stone-300 text-stone-500 transition-all duration-500 ease-premium group-hover:border-ink group-hover:bg-ink group-hover:text-cream">
-                      <Icon size={17} strokeWidth={1.3} className="group-hover:hidden" />
-                      <ArrowUpRight size={17} strokeWidth={1.3} className="hidden group-hover:block" />
-                    </span>
-                  </a>
-                </article>
-              </ScrollReveal>
-            );
-          })}
+                    {service.title}
+                  </h3>
+                  <p
+                    className={cn(
+                      "text-pretty mt-3 max-w-md text-[15px] leading-relaxed",
+                      service.image ? "text-bone/80" : "text-night/75"
+                    )}
+                  >
+                    {service.description}
+                  </p>
+                </div>
+              </a>
+            </ScrollReveal>
+          ))}
         </div>
       </div>
     </section>

@@ -2,42 +2,32 @@
 @tailwind components;
 @tailwind utilities;
 
-* {
-  scroll-behavior: smooth;
+html {
+  background-color: #0e0d0d;
+  color-scheme: dark;
+  scroll-padding-top: 6rem;
 }
 
-html {
-  background-color: #faf8f5;
+@media (prefers-reduced-motion: no-preference) {
+  html {
+    scroll-behavior: smooth;
+  }
 }
 
 body {
-  background-color: #faf8f5;
-  color: #1a1714;
-  font-feature-settings: "ss01" 1, "cv01" 1;
+  background-color: #0e0d0d;
+  color: #ece8e3;
   -webkit-font-smoothing: antialiased;
   text-rendering: optimizeLegibility;
 }
 
 ::selection {
-  background-color: #1a1714;
-  color: #faf8f5;
-}
-
-/* Custom cursor: hide native cursor only where our cursor is active (desktop, fine pointer) */
-@media (hover: hover) and (pointer: fine) {
-  html.custom-cursor,
-  html.custom-cursor a,
-  html.custom-cursor button {
-    cursor: none;
-  }
-}
-
-html {
-  scroll-padding-top: 5rem;
+  background-color: #f0a6b3;
+  color: #0e0d0d;
 }
 
 :focus-visible {
-  outline: 1px solid #8c6f42;
+  outline: 2px solid #f0a6b3;
   outline-offset: 3px;
 }
 
@@ -47,37 +37,37 @@ h3 {
   text-wrap: balance;
 }
 
-.container-px {
-  @apply px-6 sm:px-8 lg:px-12;
-}
-
-.section-py {
-  @apply py-24 sm:py-32 lg:py-40;
-}
-
 .text-pretty {
   text-wrap: pretty;
 }
 
-.text-balance {
-  text-wrap: balance;
+.container-px {
+  @apply px-5 sm:px-8 lg:px-12;
 }
 
-/* subtle grain overlay */
+.section-py {
+  @apply py-24 sm:py-32 lg:py-36;
+}
+
+.text-outline {
+  color: transparent;
+  -webkit-text-stroke: 1px rgba(236, 232, 227, 0.55);
+}
+
+/* Fixed, non-scrolling grain layer: cheap to composite. */
 .grain::before {
   content: "";
   position: fixed;
   inset: 0;
   z-index: 60;
   pointer-events: none;
-  opacity: 0.035;
+  opacity: 0.05;
   mix-blend-mode: overlay;
   background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='120' height='120'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='2' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
   background-size: 120px 120px;
 }
 
 .link-underline {
-  position: relative;
   background-image: linear-gradient(currentColor, currentColor);
   background-position: 0 100%;
   background-repeat: no-repeat;
@@ -93,6 +83,5 @@ h3 {
     animation-duration: 0.01ms !important;
     animation-iteration-count: 1 !important;
     transition-duration: 0.01ms !important;
-    scroll-behavior: auto !important;
   }
 }

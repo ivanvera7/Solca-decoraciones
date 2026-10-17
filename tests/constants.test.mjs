@@ -12,6 +12,12 @@ test("every gallery image exists in public/", () => {
   }
 });
 
+test("every service image exists in public/", () => {
+  for (const service of SERVICES.filter((s) => s.image)) {
+    assert.ok(existsSync(join(publicDir, service.image)), `missing ${service.image} (${service.title})`);
+  }
+});
+
 test("gallery images are unique", () => {
   const images = GALLERY.map((g) => g.image);
   assert.equal(new Set(images).size, images.length);

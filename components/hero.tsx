@@ -3,55 +3,57 @@
 import { useRef } from "react";
 import Image from "next/image";
 import { motion, useReducedMotion, useScroll, useTransform } from "framer-motion";
-import { ArrowDown } from "lucide-react";
+import { ArrowDownRight } from "lucide-react";
 import { RevealText } from "@/components/ui/reveal-text";
 import { Button } from "@/components/ui/button";
-import { FloralSprig } from "@/components/ui/floral-sprig";
-import { SITE } from "@/lib/constants";
 
 const EASE = [0.16, 1, 0.3, 1] as const;
+
+// Three real event photos stacked like prints on a table.
+const PRINTS = [
+  { src: "/images/work-12.jpg", alt: "Ambientación dorada con neón", className: "left-[4%] top-[6%] w-[58%] -rotate-[5deg]", depth: -60 },
+  { src: "/images/work-3.jpg", alt: "Ambientación rosa y dorado", className: "right-0 top-[18%] w-[54%] rotate-[4deg]", depth: -120 },
+  { src: "/images/work-13.jpg", alt: "Cumpleaños elegante negro y plata", className: "bottom-[2%] left-[18%] w-[50%] -rotate-[2deg]", depth: -30 },
+];
 
 export function Hero() {
   const ref = useRef<HTMLElement>(null);
   const shouldReduceMotion = useReducedMotion();
   const { scrollYProgress } = useScroll({ target: ref, offset: ["start start", "end start"] });
-
-  const bgY = useTransform(scrollYProgress, [0, 1], ["0%", shouldReduceMotion ? "0%" : "22%"]);
-  const contentY = useTransform(scrollYProgress, [0, 1], ["0%", shouldReduceMotion ? "0%" : "35%"]);
-  const contentOpacity = useTransform(scrollYProgress, [0, 0.7], [1, 0]);
+  const textY = useTransform(scrollYProgress, [0, 1], ["0%", shouldReduceMotion ? "0%" : "18%"]);
 
   return (
     <section
       ref={ref}
       id="inicio"
-      className="relative flex min-h-[100svh] w-full flex-col justify-end overflow-hidden bg-stone-900"
+      className="relative flex min-h-[100dvh] items-center overflow-hidden pb-16 pt-28 lg:pb-12 lg:pt-24"
     >
-      <motion.div style={{ y: bgY }} className="absolute inset-0 h-[124%]">
-        <Image src="/images/hero-bg.jpg" alt="" fill priority sizes="100vw" className="object-cover" />
-      </motion.div>
+      {/* Soft rose light behind the prints: gives the dark page depth without a gradient blob. */}
+      <div
+        aria-hidden="true"
+        className="pointer-events-none absolute -right-[10%] top-[10%] h-[70vh] w-[60vw] rounded-full bg-rose/[0.07] blur-[120px]"
+      />
 
-      <div className="absolute inset-0 bg-gradient-to-t from-stone-900/90 via-stone-900/45 to-stone-900/60" />
-      <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_20%_80%,rgba(184,150,90,0.18),transparent_60%)]" />
+      <div className="container-px relative mx-auto grid w-full max-w-content items-center gap-14 lg:grid-cols-12 lg:gap-8">
+        <motion.div style={{ y: textY }} className="lg:col-span-7">
+          <motion.p
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            transition={{ duration: 0.8, delay: 0.1 }}
+            className="mb-7 text-xs font-medium uppercase tracking-label text-bone-muted"
+          >
+            Decoración y ambientación<span className="hidden sm:inline"> en Paraguay</span>
+          </motion.p>
 
-      <motion.div
-        style={{ y: contentY, opacity: contentOpacity }}
-        className="container-px relative z-10 mx-auto w-full max-w-content pb-16 pt-36 sm:pb-20 lg:pb-24"
-      >
-        <p className="mb-8 flex items-center gap-3 text-xs font-medium uppercase tracking-widest2 text-gold-light">
-          <FloralSprig className="h-4 w-auto text-gold-light" />
-          Decoración y ambientación<span className="hidden sm:inline"> · {SITE.location}</span>
-        </p>
+          <h1 className="font-display text-[clamp(2.9rem,6.6vw,6.4rem)] font-semibold leading-[0.95] tracking-[-0.04em] text-bone">
+            <RevealText text="Diseñamos espacios que inspiran." wordDelay={0.07} accentWords={2} onMount delay={0.15} />
+          </h1>
 
-        <h1 className="max-w-5xl font-display text-[3.25rem] leading-[0.98] tracking-[-0.015em] text-cream sm:text-7xl lg:text-[7rem]">
-          <RevealText text="Diseñamos espacios que inspiran." wordDelay={0.08} accentWords={2} />
-        </h1>
-
-        <div className="mt-10 flex flex-col gap-10 border-t border-cream/15 pt-8 lg:mt-14 lg:flex-row lg:items-end lg:justify-between">
           <motion.p
             initial={{ opacity: 0, y: 16 }}
             animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.9, delay: 0.9, ease: EASE }}
-            className="text-pretty max-w-md text-base font-light leading-relaxed text-cream/75 sm:text-lg"
+            transition={{ duration: 0.9, delay: 0.7, ease: EASE }}
+            className="text-pretty mt-8 max-w-md text-lg leading-relaxed text-bone-muted"
           >
             Decoración personalizada con acabados de alta calidad, pensada para transformar tu
             espacio en una experiencia.
@@ -60,36 +62,68 @@ export function Hero() {
           <motion.div
             initial={{ opacity: 0, y: 16 }}
             animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.9, delay: 1.1, ease: EASE }}
-            className="flex flex-wrap items-center gap-4"
+            transition={{ duration: 0.9, delay: 0.85, ease: EASE }}
+            className="mt-10 flex flex-wrap items-center gap-x-8 gap-y-5"
           >
-            <Button href="#contacto" variant="primary" className="bg-cream text-ink hover:bg-white">
-              Solicitar presupuesto
-            </Button>
-            <Button href="#proyectos" variant="ghost" className="text-cream">
-              Ver proyectos
-            </Button>
+            <Button href="#contacto">Pedir presupuesto</Button>
+            <a
+              href="#proyectos"
+              className="group inline-flex items-center gap-2 text-[15px] text-bone transition-colors hover:text-rose"
+            >
+              <span className="link-underline">Ver proyectos</span>
+              <ArrowDownRight
+                size={18}
+                strokeWidth={1.6}
+                className="transition-transform duration-500 ease-premium group-hover:translate-x-0.5 group-hover:translate-y-0.5"
+              />
+            </a>
           </motion.div>
-        </div>
-      </motion.div>
+        </motion.div>
 
-      <motion.a
-        href="#nosotros"
-        aria-label="Bajar a la siguiente sección"
-        data-cursor-hover
-        initial={{ opacity: 0 }}
-        animate={{ opacity: 1 }}
-        transition={{ duration: 1, delay: 1.6 }}
-        className="absolute right-6 top-1/2 z-10 hidden -translate-y-1/2 flex-col items-center gap-4 text-cream/60 transition-colors hover:text-cream sm:right-8 lg:right-12 lg:flex"
-      >
-        <span className="text-[10px] uppercase tracking-widest2 [writing-mode:vertical-rl]">Descubre más</span>
-        <motion.span
-          animate={shouldReduceMotion ? {} : { y: [0, 6, 0] }}
-          transition={{ duration: 1.8, repeat: Infinity, ease: "easeInOut" }}
-        >
-          <ArrowDown size={16} strokeWidth={1.5} />
-        </motion.span>
-      </motion.a>
+        <div className="relative aspect-[5/6] w-full max-w-md justify-self-center sm:max-w-lg lg:col-span-5 lg:max-w-none">
+          {PRINTS.map((print, i) => (
+            <Print key={print.src} {...print} index={i} progress={scrollYProgress} reduce={!!shouldReduceMotion} />
+          ))}
+        </div>
+      </div>
     </section>
+  );
+}
+
+function Print({
+  src,
+  alt,
+  className,
+  depth,
+  index,
+  progress,
+  reduce,
+}: (typeof PRINTS)[number] & {
+  index: number;
+  progress: ReturnType<typeof useScroll>["scrollYProgress"];
+  reduce: boolean;
+}) {
+  // Each print drifts at its own speed on scroll: cheap parallax depth.
+  const y = useTransform(progress, [0, 1], [0, reduce ? 0 : depth]);
+
+  return (
+    <motion.div style={{ y }} className={`absolute ${className}`}>
+      <motion.div
+        initial={reduce ? false : { opacity: 0, y: 60, scale: 0.94 }}
+        animate={{ opacity: 1, y: 0, scale: 1 }}
+        transition={{ duration: 1.2, delay: 0.35 + index * 0.15, ease: EASE }}
+        whileHover={reduce ? undefined : { scale: 1.03, rotate: 0, zIndex: 10 }}
+        className="relative aspect-[4/5] overflow-hidden rounded-3xl border border-line shadow-[0_30px_80px_-20px_rgba(0,0,0,0.9)]"
+      >
+        <Image
+          src={src}
+          alt={alt}
+          fill
+          priority={index === 0}
+          sizes="(min-width: 1024px) 22vw, 50vw"
+          className="object-cover"
+        />
+      </motion.div>
+    </motion.div>
   );
 }

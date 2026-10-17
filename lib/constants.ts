@@ -27,6 +27,8 @@ export type Service = {
   title: string;
   description: string;
   icon: "sofa" | "sparkles" | "gift" | "compass";
+  /** Optional photo for the services bento; tiles without one use the accent color. */
+  image?: string;
 };
 
 export const SERVICES: Service[] = [
@@ -35,18 +37,21 @@ export const SERVICES: Service[] = [
     description:
       "Ambientación integral de espacios que combina estética, funcionalidad y confort para transformar cada estancia.",
     icon: "sofa",
+    image: "/images/work-4.jpg",
   },
   {
     title: "Ambientación de eventos",
     description:
       "Arcos de globos, flores y ambientaciones a medida para cumpleaños, baby showers y celebraciones inolvidables.",
     icon: "sparkles",
+    image: "/images/work-12.jpg",
   },
   {
     title: "Manualidades y regalos personalizados",
     description:
       "Piezas artesanales y regalos a medida, cuidados en cada detalle para hacer único cualquier momento.",
     icon: "gift",
+    image: "/images/work-7.jpg",
   },
   {
     title: "Asesoramiento y maquetas",

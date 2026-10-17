@@ -8,35 +8,18 @@ type ScrollRevealProps = {
   className?: string;
   delay?: number;
   y?: number;
-  blur?: boolean;
   once?: boolean;
 };
 
-export function ScrollReveal({
-  children,
-  className,
-  delay = 0,
-  y = 28,
-  blur = true,
-  once = true,
-}: ScrollRevealProps) {
+export function ScrollReveal({ children, className, delay = 0, y = 32, once = true }: ScrollRevealProps) {
   const shouldReduceMotion = useReducedMotion();
 
   const variants: Variants = {
-    hidden: {
-      opacity: 0,
-      y: shouldReduceMotion ? 0 : y,
-      filter: blur && !shouldReduceMotion ? "blur(8px)" : "blur(0px)",
-    },
+    hidden: { opacity: 0, y: shouldReduceMotion ? 0 : y },
     visible: {
       opacity: 1,
       y: 0,
-      filter: "blur(0px)",
-      transition: {
-        duration: 0.9,
-        delay,
-        ease: [0.16, 1, 0.3, 1],
-      },
+      transition: { duration: 0.9, delay, ease: [0.16, 1, 0.3, 1] },
     },
   };
 

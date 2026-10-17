@@ -2,14 +2,22 @@
 
 import { useState, type FormEvent } from "react";
 import { motion } from "framer-motion";
-import { Instagram, Mail, MapPin, Phone, Send } from "lucide-react";
+import { ArrowUpRight, Send } from "lucide-react";
 import { ScrollReveal } from "@/components/ui/scroll-reveal";
 import { RevealText } from "@/components/ui/reveal-text";
 import { Magnetic } from "@/components/ui/magnetic";
-import { FloralSprig } from "@/components/ui/floral-sprig";
 import { SITE, SERVICE_OPTIONS } from "@/lib/constants";
 
 type Status = "idle" | "sent";
+
+const CHANNELS = [
+  { label: "WhatsApp", value: SITE.phone, href: SITE.whatsapp, external: true },
+  { label: "Instagram", value: SITE.instagramHandle, href: SITE.instagram, external: true },
+  { label: "Correo", value: SITE.email, href: `mailto:${SITE.email}`, external: false },
+];
+
+const FIELD =
+  "w-full rounded-2xl border border-line bg-night px-4 py-3.5 text-[15px] text-bone outline-none transition-colors placeholder:text-bone-faint hover:border-bone/30 focus:border-rose";
 
 export function Contact() {
   const [status, setStatus] = useState<Status>("idle");
@@ -28,7 +36,7 @@ export function Contact() {
       `Nombre: ${nombre}\nTeléfono: ${telefono}\nCorreo: ${correo}\nServicio: ${servicio}\n\n${mensaje}`
     );
     window.location.href = `mailto:${SITE.email}?subject=${encodeURIComponent(
-      "Solicitud de presupuesto — " + nombre
+      "Solicitud de presupuesto - " + nombre
     )}&body=${body}`;
 
     setStatus("sent");
@@ -36,154 +44,103 @@ export function Contact() {
   };
 
   return (
-    <section id="contacto" className="section-py bg-stone-50">
-      <div className="container-px mx-auto max-w-content">
-        <div className="grid gap-16 lg:grid-cols-5 lg:gap-12">
-          <div className="lg:col-span-2">
-            <ScrollReveal>
-              <p className="mb-5 flex items-center gap-2 text-xs font-medium uppercase tracking-widest2 text-gold-dark">
-                <FloralSprig className="h-4 w-auto" />
-                Contacto
-              </p>
-            </ScrollReveal>
-            <ScrollReveal delay={0.05}>
-              <h2 className="font-display text-4xl leading-[1.05] tracking-[-0.01em] text-ink sm:text-5xl lg:text-6xl">
-                <RevealText text="Cuéntanos tu proyecto." accentWords={1} />
-              </h2>
-            </ScrollReveal>
-            <ScrollReveal delay={0.15}>
-              <p className="mt-6 max-w-sm text-balance text-[15px] font-light leading-relaxed text-stone-600">
-                Escríbenos y te responderemos en menos de 24 horas para agendar una primera
-                consulta sin compromiso.
-              </p>
-            </ScrollReveal>
+    <section id="contacto" className="section-py">
+      <div className="container-px mx-auto grid max-w-content gap-16 lg:grid-cols-12 lg:gap-12">
+        <div className="lg:col-span-5">
+          <p className="mb-5 text-xs font-medium uppercase tracking-label text-bone-muted">Contacto</p>
+          <h2 className="font-display text-[clamp(2.4rem,5vw,4.5rem)] font-semibold leading-[1] tracking-[-0.04em] text-bone">
+            <RevealText text="Cuéntanos tu proyecto." accentWords={1} />
+          </h2>
+          <ScrollReveal delay={0.1}>
+            <p className="text-pretty mt-6 max-w-sm text-base leading-relaxed text-bone-muted">
+              Te respondemos en menos de 24 horas para agendar una primera consulta sin compromiso.
+            </p>
+          </ScrollReveal>
 
-            <ScrollReveal delay={0.25}>
-              <ul className="mt-12 space-y-5">
-                <li>
+          <ScrollReveal delay={0.2}>
+            <ul className="mt-12 border-t border-line">
+              {CHANNELS.map((c) => (
+                <li key={c.label} className="border-b border-line">
                   <a
-                    href={SITE.phoneHref}
-                    data-cursor-hover
-                    className="group flex items-center gap-4 text-sm text-stone-700 transition-colors hover:text-ink"
+                    href={c.href}
+                    {...(c.external ? { target: "_blank", rel: "noopener noreferrer" } : {})}
+                    className="group flex items-center justify-between gap-4 py-5"
                   >
-                    <span className="flex h-10 w-10 items-center justify-center rounded-full border border-stone-300 text-stone-500 transition-colors group-hover:border-gold/50 group-hover:text-gold-dark">
-                      <Phone size={16} strokeWidth={1.4} />
+                    <span>
+                      <span className="block text-xs text-bone-faint">{c.label}</span>
+                      <span className="mt-1 block break-all text-lg text-bone transition-colors group-hover:text-rose">
+                        {c.value}
+                      </span>
                     </span>
-                    {SITE.phone}
-                  </a>
-                </li>
-                <li>
-                  <a
-                    href={SITE.instagram}
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    data-cursor-hover
-                    className="group flex items-center gap-4 text-sm text-stone-700 transition-colors hover:text-ink"
-                  >
-                    <span className="flex h-10 w-10 items-center justify-center rounded-full border border-stone-300 text-stone-500 transition-colors group-hover:border-gold/50 group-hover:text-gold-dark">
-                      <Instagram size={16} strokeWidth={1.4} />
-                    </span>
-                    {SITE.instagramHandle}
-                  </a>
-                </li>
-                <li>
-                  <a
-                    href={`mailto:${SITE.email}`}
-                    data-cursor-hover
-                    className="group flex items-center gap-4 text-sm text-stone-700 transition-colors hover:text-ink"
-                  >
-                    <span className="flex h-10 w-10 items-center justify-center rounded-full border border-stone-300 text-stone-500 transition-colors group-hover:border-gold/50 group-hover:text-gold-dark">
-                      <Mail size={16} strokeWidth={1.4} />
-                    </span>
-                    {SITE.email}
-                  </a>
-                </li>
-                <li className="flex items-center gap-4 text-sm text-stone-700">
-                  <span className="flex h-10 w-10 items-center justify-center rounded-full border border-stone-300 text-stone-500">
-                    <MapPin size={16} strokeWidth={1.4} />
-                  </span>
-                  {SITE.location}
-                </li>
-              </ul>
-            </ScrollReveal>
-          </div>
-
-          <ScrollReveal delay={0.1} className="lg:col-span-3">
-            <form onSubmit={handleSubmit} className="grid grid-cols-1 gap-6 sm:grid-cols-2">
-              <Field label="Nombre" name="nombre" autoComplete="name" required />
-              <Field label="Teléfono" name="telefono" type="tel" autoComplete="tel" />
-              <Field label="Correo" name="correo" type="email" autoComplete="email" required />
-              <div>
-                <label htmlFor="servicio" className="mb-2 block text-xs uppercase tracking-widest2 text-stone-500">
-                  Servicio
-                </label>
-                <select
-                  id="servicio"
-                  name="servicio"
-                  defaultValue=""
-                  className="w-full border-b border-stone-300 bg-transparent py-2 text-[15px] text-ink outline-none transition-colors focus-visible:border-gold-dark focus-visible:shadow-[0_1px_0_0_#8c6f42] focus:border-gold-dark"
-                >
-                  <option value="" disabled>
-                    Selecciona una opción
-                  </option>
-                  {SERVICE_OPTIONS.map((option) => (
-                    <option key={option} value={option}>
-                      {option}
-                    </option>
-                  ))}
-                </select>
-              </div>
-              <div className="sm:col-span-2">
-                <label htmlFor="mensaje" className="mb-2 block text-xs uppercase tracking-widest2 text-stone-500">
-                  Mensaje
-                </label>
-                <textarea
-                  id="mensaje"
-                  name="mensaje"
-                  rows={5}
-                  required
-                  className="w-full resize-none border-b border-stone-300 bg-transparent py-2 text-[15px] text-ink outline-none transition-colors focus-visible:border-gold-dark focus-visible:shadow-[0_1px_0_0_#8c6f42] placeholder:text-stone-400 focus:border-gold-dark"
-                  placeholder="Cuéntanos qué tienes en mente…"
-                />
-              </div>
-
-              <div className="sm:col-span-2">
-                <Magnetic className="inline-block w-full sm:w-auto">
-                  <motion.button
-                    type="submit"
-                    data-cursor-hover
-                    initial="rest"
-                    animate="rest"
-                    whileHover="hover"
-                    whileTap={{ scale: 0.96 }}
-                    transition={{ type: "spring", stiffness: 420, damping: 26 }}
-                    className="group relative inline-flex w-full items-center justify-center gap-2 overflow-hidden rounded-full bg-ink px-8 py-3.5 text-sm tracking-wide text-cream transition-colors duration-300 ease-premium hover:bg-stone-800 sm:w-auto"
-                  >
-                    <motion.span
-                      aria-hidden="true"
-                      variants={{ rest: { x: "-130%" }, hover: { x: "130%" } }}
-                      transition={{ duration: 0.75, ease: [0.16, 1, 0.3, 1] }}
-                      className="pointer-events-none absolute inset-y-0 left-0 w-1/3 -skew-x-12 bg-white/10"
+                    <ArrowUpRight
+                      size={20}
+                      strokeWidth={1.5}
+                      className="shrink-0 text-bone-muted transition-all duration-500 ease-premium group-hover:rotate-45 group-hover:text-rose"
                     />
-                    <motion.span
-                      variants={{ rest: { scale: 1 }, hover: { scale: 1.05 } }}
-                      transition={{ duration: 0.4, ease: [0.16, 1, 0.3, 1] }}
-                      className="relative z-10 inline-flex items-center gap-2"
-                    >
-                      Enviar mensaje
-                      <Send size={15} strokeWidth={1.5} />
-                    </motion.span>
-                  </motion.button>
-                </Magnetic>
-                {status === "sent" && (
-                  <p className="mt-4 text-sm text-stone-500">
-                    Gracias — se abrirá tu gestor de correo para completar el envío.
-                  </p>
-                )}
-              </div>
-            </form>
+                  </a>
+                </li>
+              ))}
+            </ul>
+            <p className="mt-5 text-sm text-bone-faint">{SITE.location}</p>
           </ScrollReveal>
         </div>
+
+        <ScrollReveal delay={0.1} className="lg:col-span-7">
+          <form
+            onSubmit={handleSubmit}
+            className="grid grid-cols-1 gap-5 rounded-3xl border border-line bg-night-2 p-6 sm:grid-cols-2 sm:p-10"
+          >
+            <Field label="Nombre" name="nombre" autoComplete="name" required />
+            <Field label="Teléfono" name="telefono" type="tel" autoComplete="tel" />
+            <Field label="Correo" name="correo" type="email" autoComplete="email" required />
+            <div className="flex flex-col gap-2">
+              <label htmlFor="servicio" className="text-sm text-bone-muted">
+                Servicio
+              </label>
+              <select id="servicio" name="servicio" defaultValue="" className={FIELD}>
+                <option value="" disabled>
+                  Selecciona una opción
+                </option>
+                {SERVICE_OPTIONS.map((option) => (
+                  <option key={option} value={option}>
+                    {option}
+                  </option>
+                ))}
+              </select>
+            </div>
+            <div className="flex flex-col gap-2 sm:col-span-2">
+              <label htmlFor="mensaje" className="text-sm text-bone-muted">
+                Mensaje
+              </label>
+              <textarea
+                id="mensaje"
+                name="mensaje"
+                rows={5}
+                required
+                className={`${FIELD} resize-none`}
+                placeholder="Fecha, lugar, temática, cantidad de invitados…"
+              />
+            </div>
+
+            <div className="flex flex-col gap-4 sm:col-span-2 sm:flex-row sm:items-center sm:justify-between">
+              <p className="text-sm text-bone-faint" aria-live="polite">
+                {status === "sent"
+                  ? "Listo. Se abrirá tu correo para completar el envío."
+                  : "Se abrirá tu aplicación de correo con el mensaje listo."}
+              </p>
+              <Magnetic className="inline-block" strength={0.2}>
+                <motion.button
+                  type="submit"
+                  whileTap={{ scale: 0.97 }}
+                  className="inline-flex w-full items-center justify-center gap-2 whitespace-nowrap rounded-full bg-rose px-7 py-3.5 text-[15px] font-medium text-night transition-colors duration-300 hover:bg-rose-deep sm:w-auto"
+                >
+                  Enviar mensaje
+                  <Send size={16} strokeWidth={1.8} />
+                </motion.button>
+              </Magnetic>
+            </div>
+          </form>
+        </ScrollReveal>
       </div>
     </section>
   );
@@ -195,23 +152,16 @@ type FieldProps = {
   type?: string;
   autoComplete?: string;
   required?: boolean;
-  className?: string;
 };
 
-function Field({ label, name, type = "text", autoComplete, required, className }: FieldProps) {
+function Field({ label, name, type = "text", autoComplete, required }: FieldProps) {
   return (
-    <div className={className}>
-      <label htmlFor={name} className="mb-2 block text-xs uppercase tracking-widest2 text-stone-500">
+    <div className="flex flex-col gap-2">
+      <label htmlFor={name} className="text-sm text-bone-muted">
         {label}
+        {required && <span className="text-rose"> *</span>}
       </label>
-      <input
-        id={name}
-        name={name}
-        type={type}
-        autoComplete={autoComplete}
-        required={required}
-        className="w-full border-b border-stone-300 bg-transparent py-2 text-[15px] text-ink outline-none transition-colors focus-visible:border-gold-dark focus-visible:shadow-[0_1px_0_0_#8c6f42] focus:border-gold-dark"
-      />
+      <input id={name} name={name} type={type} autoComplete={autoComplete} required={required} className={FIELD} />
     </div>
   );
 }

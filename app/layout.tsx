@@ -1,21 +1,17 @@
 import type { Metadata, Viewport } from "next";
-import { Cormorant_Garamond, Manrope } from "next/font/google";
-import { CustomCursor } from "@/components/ui/custom-cursor";
+import { Bricolage_Grotesque, Hanken_Grotesk } from "next/font/google";
 import { FloatingContact } from "@/components/ui/floating-contact";
 import { SITE } from "@/lib/constants";
 import "./globals.css";
 
-const sans = Manrope({
+const sans = Hanken_Grotesk({
   subsets: ["latin"],
   variable: "--font-sans",
   display: "swap",
 });
 
-// 400 not loaded on purpose: font-normal headings resolve to 500, Cormorant's thin 400 reads weak.
-const display = Cormorant_Garamond({
+const display = Bricolage_Grotesque({
   subsets: ["latin"],
-  weight: ["500", "600"],
-  style: ["normal", "italic"],
   variable: "--font-display",
   display: "swap",
 });
@@ -23,8 +19,8 @@ const display = Cormorant_Garamond({
 export const metadata: Metadata = {
   metadataBase: new URL(SITE.url),
   title: {
-    default: `${SITE.name} — ${SITE.tagline}`,
-    template: `%s — ${SITE.name}`,
+    default: `${SITE.name} | ${SITE.tagline}`,
+    template: `%s | ${SITE.name}`,
   },
   description: SITE.description,
   keywords: [
@@ -46,7 +42,7 @@ export const metadata: Metadata = {
     locale: SITE.locale,
     url: SITE.url,
     siteName: SITE.name,
-    title: `${SITE.name} — ${SITE.tagline}`,
+    title: `${SITE.name} | ${SITE.tagline}`,
     description: SITE.description,
     images: [
       {
@@ -59,7 +55,7 @@ export const metadata: Metadata = {
   },
   twitter: {
     card: "summary_large_image",
-    title: `${SITE.name} — ${SITE.tagline}`,
+    title: `${SITE.name} | ${SITE.tagline}`,
     description: SITE.description,
     images: ["/images/og.jpg"],
   },
@@ -80,7 +76,7 @@ export const metadata: Metadata = {
 };
 
 export const viewport: Viewport = {
-  themeColor: "#FAF8F5",
+  themeColor: "#0E0D0D",
   width: "device-width",
   initialScale: 1,
 };
@@ -106,10 +102,10 @@ const jsonLd = {
 export default function RootLayout({ children }: { children: React.ReactNode }) {
   return (
     <html lang="es" className={`${sans.variable} ${display.variable}`}>
-      <body className="grain bg-cream font-sans text-ink antialiased">
+      <body className="grain bg-night font-sans text-bone antialiased">
         <a
           href="#main"
-          className="fixed left-4 top-4 z-[200] -translate-y-24 rounded-full bg-ink px-5 py-2.5 text-sm text-cream transition-transform focus:translate-y-0"
+          className="fixed left-4 top-4 z-[200] -translate-y-24 rounded-full bg-rose px-5 py-2.5 text-sm font-medium text-night transition-transform focus:translate-y-0"
         >
           Saltar al contenido
         </a>
@@ -117,7 +113,6 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
           type="application/ld+json"
           dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
         />
-        <CustomCursor />
         {children}
         <FloatingContact />
       </body>

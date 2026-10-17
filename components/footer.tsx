@@ -1,55 +1,58 @@
 import { Instagram, MessageCircle } from "lucide-react";
 import { Logo } from "@/components/ui/logo";
-import { FloralSprig } from "@/components/ui/floral-sprig";
 import { SITE, NAV_LINKS } from "@/lib/constants";
 
 export function Footer() {
   return (
-    <footer className="border-t border-stone-200 bg-cream">
-      <div className="container-px mx-auto max-w-content py-14">
-        <div className="flex flex-col items-start justify-between gap-10 lg:flex-row lg:items-center">
-          <Logo variant="dark" showWordmark className="w-24" />
+    <footer className="overflow-hidden border-t border-line">
+      <div className="container-px mx-auto max-w-content pt-16">
+        <div className="flex flex-col justify-between gap-10 lg:flex-row lg:items-center">
+          <Logo showWordmark={false} className="w-10" />
 
-          <ul className="flex flex-wrap gap-x-8 gap-y-3 text-sm text-stone-500">
+          <ul className="flex flex-wrap gap-x-8 gap-y-3 text-sm text-bone-muted">
             {NAV_LINKS.map((link) => (
               <li key={link.href}>
-                <a href={link.href} className="link-underline transition-colors hover:text-ink">
+                <a href={link.href} className="link-underline transition-colors hover:text-bone">
                   {link.label}
                 </a>
               </li>
             ))}
           </ul>
 
-          <div className="flex items-center gap-4">
+          <div className="flex items-center gap-3">
             <a
               href={SITE.instagram}
               target="_blank"
               rel="noopener noreferrer"
               aria-label="Instagram de SOLCA Decoraciones"
-              data-cursor-hover
-              className="flex h-10 w-10 items-center justify-center rounded-full border border-stone-300 text-stone-500 transition-colors hover:border-gold/50 hover:text-gold-dark"
+              className="flex h-11 w-11 items-center justify-center rounded-full border border-line text-bone-muted transition-colors hover:border-rose hover:text-rose"
             >
-              <Instagram size={16} strokeWidth={1.4} />
+              <Instagram size={17} strokeWidth={1.6} />
             </a>
             <a
               href={SITE.whatsapp}
               target="_blank"
               rel="noopener noreferrer"
               aria-label="WhatsApp de SOLCA Decoraciones"
-              data-cursor-hover
-              className="flex h-10 w-10 items-center justify-center rounded-full border border-stone-300 text-stone-500 transition-colors hover:border-gold/50 hover:text-gold-dark"
+              className="flex h-11 w-11 items-center justify-center rounded-full border border-line text-bone-muted transition-colors hover:border-rose hover:text-rose"
             >
-              <MessageCircle size={16} strokeWidth={1.4} />
+              <MessageCircle size={17} strokeWidth={1.6} />
             </a>
           </div>
         </div>
 
-        <div className="mt-12 flex flex-col items-start justify-between gap-4 border-t border-stone-200 pt-8 text-xs text-stone-400 sm:flex-row sm:items-center">
-          <p>© {new Date().getFullYear()} {SITE.name}. Todos los derechos reservados.</p>
-          <p className="flex items-center gap-2">
-            <FloralSprig className="h-4 w-auto" />
-            Hecho a mano, con dedicación artesanal.
+        <p
+          aria-hidden="true"
+          className="mt-16 select-none text-center font-display text-[24vw] font-bold leading-[0.78] tracking-[-0.06em] text-bone/[0.07] lg:text-[21vw]"
+        >
+          SOLCA
+        </p>
+
+        <div className="flex flex-col gap-2 border-t border-line py-8 text-xs text-bone-faint sm:flex-row sm:justify-between">
+          <p>
+            © {new Date().getFullYear()} {SITE.name}. Todos los derechos reservados.
           </p>
+          <p>Hecho a mano en {SITE.location}.</p>
         </div>
       </div>
     </footer>

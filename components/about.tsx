@@ -1,65 +1,39 @@
 import { ScrollReveal } from "@/components/ui/scroll-reveal";
-import { RevealText } from "@/components/ui/reveal-text";
-import { FloralSprig } from "@/components/ui/floral-sprig";
-import { TiltCard } from "@/components/ui/tilt-card";
-import { AnimatedLogoPanel } from "@/components/ui/animated-logo-panel";
+import { ScrollWords } from "@/components/ui/scroll-words";
+
+const STATS = [
+  { value: "+2", label: "años de experiencia" },
+  { value: "100%", label: "proyectos a medida" },
+  { value: "24 h", label: "para responder tu consulta" },
+];
 
 export function About() {
   return (
-    <section id="nosotros" className="section-py relative overflow-hidden bg-cream">
-      <div className="container-px mx-auto grid max-w-content items-center gap-16 lg:grid-cols-2 lg:gap-24">
-        <ScrollReveal className="relative order-2 lg:order-1">
-          <TiltCard className="aspect-[4/5]" maxTilt={4}>
-            <AnimatedLogoPanel />
-          </TiltCard>
-          <div className="absolute -bottom-8 -right-6 hidden h-32 w-32 flex-col items-center justify-center gap-2 border border-gold/40 bg-cream sm:flex">
-            <FloralSprig className="h-6 w-auto" />
-            <span className="font-display text-sm italic text-gold-dark">Desde el detalle</span>
-          </div>
-        </ScrollReveal>
+    <section id="nosotros" className="section-py">
+      <div className="container-px mx-auto max-w-content">
+        <h2 className="sr-only">Sobre nosotros</h2>
+        <ScrollWords
+          className="max-w-5xl font-display text-[clamp(1.75rem,3.6vw,3.25rem)] font-medium leading-[1.15] tracking-[-0.025em] text-bone"
+          text="En SOLCA creemos que cada espacio y cada celebración cuentan una historia. Combinamos sensibilidad estética y trabajo artesanal para crear ambientaciones que reflejan a quienes las encargan."
+        />
 
-        <div className="order-1 lg:order-2">
-          <ScrollReveal>
-            <p className="mb-5 flex items-center gap-2 text-xs font-medium uppercase tracking-widest2 text-gold-dark">
-              <FloralSprig className="h-4 w-auto" />
-              Sobre nosotros
+        <div className="mt-20 grid gap-12 border-t border-line pt-12 lg:grid-cols-12">
+          <ScrollReveal className="lg:col-span-5">
+            <p className="text-pretty max-w-md text-base leading-relaxed text-bone-muted">
+              Desde arcos de globos y ambientaciones florales hasta manualidades y regalos a medida,
+              cuidamos materiales, proporciones y color en cada proyecto, grande o pequeño.
             </p>
           </ScrollReveal>
-          <ScrollReveal delay={0.05}>
-            <h2 className="font-display text-4xl leading-[1.05] tracking-[-0.01em] text-ink sm:text-5xl lg:text-6xl">
-              <RevealText text="Cada detalle, hecho con dedicación artesanal." accentWords={2} />
-            </h2>
-          </ScrollReveal>
-          <ScrollReveal delay={0.15}>
-            <p className="mt-7 max-w-lg text-balance text-[15px] font-light leading-relaxed text-stone-600 sm:text-base">
-              En SOLCA Decoraciones creemos que cada espacio y cada celebración cuentan una
-              historia. Combinamos sensibilidad estética y trabajo artesanal para crear
-              ambientaciones, decoración de eventos y piezas personalizadas que reflejan la
-              identidad de quienes las encargan.
-            </p>
-            <p className="mt-5 max-w-lg text-balance text-[15px] font-light leading-relaxed text-stone-600 sm:text-base">
-              Desde arcos de globos y ambientaciones florales hasta manualidades y regalos a
-              medida, cuidamos materiales, proporciones y color en cada proyecto, grande o
-              pequeño.
-            </p>
-          </ScrollReveal>
-
-          <ScrollReveal delay={0.25}>
-            <dl className="mt-12 grid grid-cols-2 gap-8 border-t border-stone-200 pt-8 sm:max-w-md">
-              <div>
-                <dt className="font-display text-5xl text-ink">+2</dt>
-                <dd className="mt-1 text-xs uppercase tracking-widest2 text-stone-500">
-                  Años de experiencia
-                </dd>
-              </div>
-              <div>
-                <dt className="font-display text-5xl text-ink">100%</dt>
-                <dd className="mt-1 text-xs uppercase tracking-widest2 text-stone-500">
-                  Proyectos a medida
-                </dd>
-              </div>
-            </dl>
-          </ScrollReveal>
+          <dl className="grid grid-cols-3 gap-6 lg:col-span-7">
+            {STATS.map((stat, i) => (
+              <ScrollReveal key={stat.label} delay={i * 0.08}>
+                <dt className="font-display text-[clamp(2.25rem,4.5vw,4rem)] font-semibold leading-none tracking-[-0.04em] text-rose tabular-nums">
+                  {stat.value}
+                </dt>
+                <dd className="mt-3 text-sm leading-snug text-bone-muted">{stat.label}</dd>
+              </ScrollReveal>
+            ))}
+          </dl>
         </div>
       </div>
     </section>
