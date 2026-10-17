@@ -47,8 +47,8 @@ export function Contact() {
               </p>
             </ScrollReveal>
             <ScrollReveal delay={0.05}>
-              <h2 className="font-display text-3xl font-normal leading-tight text-ink sm:text-4xl">
-                <RevealText text="Cuéntanos tu proyecto." />
+              <h2 className="font-display text-4xl leading-[1.05] tracking-[-0.01em] text-ink sm:text-5xl lg:text-6xl">
+                <RevealText text="Cuéntanos tu proyecto." accentWords={1} />
               </h2>
             </ScrollReveal>
             <ScrollReveal delay={0.15}>
@@ -121,7 +121,7 @@ export function Contact() {
                   id="servicio"
                   name="servicio"
                   defaultValue=""
-                  className="w-full border-b border-stone-300 bg-transparent py-2 text-[15px] text-ink outline-none transition-colors focus:border-ink"
+                  className="w-full border-b border-stone-300 bg-transparent py-2 text-[15px] text-ink outline-none transition-colors focus-visible:border-gold-dark focus-visible:shadow-[0_1px_0_0_#8c6f42] focus:border-gold-dark"
                 >
                   <option value="" disabled>
                     Selecciona una opción
@@ -142,7 +142,7 @@ export function Contact() {
                   name="mensaje"
                   rows={5}
                   required
-                  className="w-full resize-none border-b border-stone-300 bg-transparent py-2 text-[15px] text-ink outline-none transition-colors placeholder:text-stone-400 focus:border-ink"
+                  className="w-full resize-none border-b border-stone-300 bg-transparent py-2 text-[15px] text-ink outline-none transition-colors focus-visible:border-gold-dark focus-visible:shadow-[0_1px_0_0_#8c6f42] placeholder:text-stone-400 focus:border-gold-dark"
                   placeholder="Cuéntanos qué tienes en mente…"
                 />
               </div>
@@ -210,7 +210,7 @@ function Field({ label, name, type = "text", autoComplete, required, className }
         type={type}
         autoComplete={autoComplete}
         required={required}
-        className="w-full border-b border-stone-300 bg-transparent py-2 text-[15px] text-ink outline-none transition-colors focus:border-ink"
+        className="w-full border-b border-stone-300 bg-transparent py-2 text-[15px] text-ink outline-none transition-colors focus-visible:border-gold-dark focus-visible:shadow-[0_1px_0_0_#8c6f42] focus:border-gold-dark"
       />
     </div>
   );

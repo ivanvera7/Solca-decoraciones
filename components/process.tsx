@@ -12,19 +12,19 @@ export function Process() {
         alt=""
         fill
         sizes="100vw"
-        className="pointer-events-none absolute inset-0 object-cover opacity-40"
+        className="pointer-events-none absolute inset-0 object-cover opacity-25"
       />
       <div className="container-px relative mx-auto max-w-content">
-        <div className="mx-auto max-w-2xl text-center">
+        <div className="max-w-2xl">
           <ScrollReveal>
-            <p className="mb-5 flex items-center justify-center gap-2 text-xs font-medium uppercase tracking-widest2 text-gold-dark">
+            <p className="mb-5 flex items-center gap-2 text-xs font-medium uppercase tracking-widest2 text-gold-dark">
               <FloralSprig className="h-4 w-auto" />
               Nuestro proceso
             </p>
           </ScrollReveal>
           <ScrollReveal delay={0.05}>
-            <h2 className="font-display text-3xl font-normal leading-tight text-ink sm:text-4xl lg:text-[2.75rem]">
-              <RevealText text="Cuatro etapas, un mismo cuidado." />
+            <h2 className="font-display text-4xl leading-[1.05] tracking-[-0.01em] text-ink sm:text-5xl lg:text-6xl">
+              <RevealText text="Cuatro etapas, un mismo cuidado." accentWords={2} />
             </h2>
           </ScrollReveal>
         </div>
@@ -35,11 +35,11 @@ export function Process() {
             {PROCESS_STEPS.map((step, i) => (
               <ScrollReveal key={step.number} delay={i * 0.12}>
                 <div className="relative flex gap-6 pl-14 lg:flex-col lg:gap-0 lg:pl-0">
-                  <div className="absolute left-0 top-0 flex h-10 w-10 items-center justify-center rounded-full border border-gold/50 bg-cream font-display text-sm text-gold-dark lg:relative">
+                  <div className="absolute left-0 top-0 flex h-10 w-10 items-center justify-center rounded-full border border-gold/50 bg-cream font-display text-base italic text-gold-dark tabular-nums lg:relative">
                     {step.number}
                   </div>
                   <div className="lg:mt-8 lg:pr-6">
-                    <h3 className="font-display text-xl text-ink">{step.title}</h3>
+                    <h3 className="font-display text-2xl text-ink">{step.title}</h3>
                     <p className="mt-2 text-sm font-light leading-relaxed text-stone-500">
                       {step.description}
                     </p>

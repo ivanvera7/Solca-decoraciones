@@ -2,10 +2,6 @@
 @tailwind components;
 @tailwind utilities;
 
-:root {
-  --font-inter: theme(fontFamily.sans);
-}
-
 * {
   scroll-behavior: smooth;
 }
@@ -16,14 +12,14 @@ html {
 
 body {
   background-color: #faf8f5;
-  color: #111111;
+  color: #1a1714;
   font-feature-settings: "ss01" 1, "cv01" 1;
   -webkit-font-smoothing: antialiased;
   text-rendering: optimizeLegibility;
 }
 
 ::selection {
-  background-color: #111111;
+  background-color: #1a1714;
   color: #faf8f5;
 }
 
@@ -36,12 +32,31 @@ body {
   }
 }
 
+html {
+  scroll-padding-top: 5rem;
+}
+
+:focus-visible {
+  outline: 1px solid #8c6f42;
+  outline-offset: 3px;
+}
+
+h1,
+h2,
+h3 {
+  text-wrap: balance;
+}
+
 .container-px {
   @apply px-6 sm:px-8 lg:px-12;
 }
 
 .section-py {
   @apply py-24 sm:py-32 lg:py-40;
+}
+
+.text-pretty {
+  text-wrap: pretty;
 }
 
 .text-balance {

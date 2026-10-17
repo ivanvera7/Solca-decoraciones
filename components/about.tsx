@@ -26,8 +26,8 @@ export function About() {
             </p>
           </ScrollReveal>
           <ScrollReveal delay={0.05}>
-            <h2 className="font-display text-3xl font-normal leading-tight text-ink sm:text-4xl lg:text-[2.75rem]">
-              <RevealText text="Cada detalle, hecho con dedicación artesanal." />
+            <h2 className="font-display text-4xl leading-[1.05] tracking-[-0.01em] text-ink sm:text-5xl lg:text-6xl">
+              <RevealText text="Cada detalle, hecho con dedicación artesanal." accentWords={2} />
             </h2>
           </ScrollReveal>
           <ScrollReveal delay={0.15}>
@@ -47,13 +47,13 @@ export function About() {
           <ScrollReveal delay={0.25}>
             <dl className="mt-12 grid grid-cols-2 gap-8 border-t border-stone-200 pt-8 sm:max-w-md">
               <div>
-                <dt className="font-display text-3xl text-ink">+2</dt>
+                <dt className="font-display text-5xl text-ink">+2</dt>
                 <dd className="mt-1 text-xs uppercase tracking-widest2 text-stone-500">
                   Años de experiencia
                 </dd>
               </div>
               <div>
-                <dt className="font-display text-3xl text-ink">100%</dt>
+                <dt className="font-display text-5xl text-ink">100%</dt>
                 <dd className="mt-1 text-xs uppercase tracking-widest2 text-stone-500">
                   Proyectos a medida
                 </dd>

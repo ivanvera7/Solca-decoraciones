@@ -9,6 +9,8 @@ type RevealTextProps = {
   delay?: number;
   wordDelay?: number;
   once?: boolean;
+  /** Number of trailing words set in gold italic. */
+  accentWords?: number;
 };
 
 export function RevealText({
@@ -18,6 +20,7 @@ export function RevealText({
   delay = 0,
   wordDelay = 0.06,
   once = true,
+  accentWords = 0,
 }: RevealTextProps) {
   const shouldReduceMotion = useReducedMotion();
   const words = text.split(" ");
@@ -55,7 +58,10 @@ export function RevealText({
       >
         {words.map((word, i) => (
           <span key={i} className="inline-block overflow-hidden pb-1 align-top">
-            <motion.span variants={child} className="inline-block">
+            <motion.span
+              variants={child}
+              className={i >= words.length - accentWords ? "inline-block italic text-gold" : "inline-block"}
+            >
               {word}
               {i < words.length - 1 ? " " : ""}
             </motion.span>

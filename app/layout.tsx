@@ -1,18 +1,21 @@
 import type { Metadata, Viewport } from "next";
-import { Inter, Playfair_Display } from "next/font/google";
+import { Cormorant_Garamond, Manrope } from "next/font/google";
 import { CustomCursor } from "@/components/ui/custom-cursor";
 import { FloatingContact } from "@/components/ui/floating-contact";
 import { SITE } from "@/lib/constants";
 import "./globals.css";
 
-const inter = Inter({
+const sans = Manrope({
   subsets: ["latin"],
-  variable: "--font-inter",
+  variable: "--font-sans",
   display: "swap",
 });
 
-const playfair = Playfair_Display({
+// 400 not loaded on purpose: font-normal headings resolve to 500, Cormorant's thin 400 reads weak.
+const display = Cormorant_Garamond({
   subsets: ["latin"],
+  weight: ["500", "600"],
+  style: ["normal", "italic"],
   variable: "--font-display",
   display: "swap",
 });
@@ -102,8 +105,14 @@ const jsonLd = {
 
 export default function RootLayout({ children }: { children: React.ReactNode }) {
   return (
-    <html lang="es" className={`${inter.variable} ${playfair.variable}`}>
+    <html lang="es" className={`${sans.variable} ${display.variable}`}>
       <body className="grain bg-cream font-sans text-ink antialiased">
+        <a
+          href="#main"
+          className="fixed left-4 top-4 z-[200] -translate-y-24 rounded-full bg-ink px-5 py-2.5 text-sm text-cream transition-transform focus:translate-y-0"
+        >
+          Saltar al contenido
+        </a>
         <script
           type="application/ld+json"
           dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}

@@ -3,12 +3,15 @@
 import { useCallback, useEffect, useState } from "react";
 import Image from "next/image";
 import { AnimatePresence, motion } from "framer-motion";
-import { ChevronLeft, ChevronRight, X } from "lucide-react";
+import { ArrowUpRight, ChevronLeft, ChevronRight, X } from "lucide-react";
 import { ScrollReveal } from "@/components/ui/scroll-reveal";
 import { RevealText } from "@/components/ui/reveal-text";
 import { FloralSprig } from "@/components/ui/floral-sprig";
 import { TiltCard } from "@/components/ui/tilt-card";
-import { GALLERY } from "@/lib/constants";
+import { GALLERY, SITE } from "@/lib/constants";
+
+// Repeating aspect ratios give the masonry columns an organic rhythm.
+const ASPECTS = ["aspect-[4/5]", "aspect-square", "aspect-[3/4]", "aspect-[4/5]", "aspect-[2/3]"];
 
 export function Gallery() {
   const [activeIndex, setActiveIndex] = useState<number | null>(null);
@@ -41,46 +44,63 @@ export function Gallery() {
   return (
     <section id="proyectos" className="section-py bg-cream">
       <div className="container-px mx-auto max-w-content">
-        <div className="mx-auto max-w-2xl text-center">
-          <ScrollReveal>
-            <p className="mb-5 flex items-center justify-center gap-2 text-xs font-medium uppercase tracking-widest2 text-gold-dark">
-              <FloralSprig className="h-4 w-auto" flip />
-              Proyectos
-            </p>
-          </ScrollReveal>
-          <ScrollReveal delay={0.05}>
-            <h2 className="font-display text-3xl font-normal leading-tight text-ink sm:text-4xl lg:text-[2.75rem]">
-              <RevealText text="Una selección de nuestro trabajo." />
-            </h2>
+        <div className="flex flex-col gap-8 lg:flex-row lg:items-end lg:justify-between">
+          <div className="max-w-2xl">
+            <ScrollReveal>
+              <p className="mb-5 flex items-center gap-2 text-xs font-medium uppercase tracking-widest2 text-gold-dark">
+                <FloralSprig className="h-4 w-auto" flip />
+                Proyectos
+              </p>
+            </ScrollReveal>
+            <ScrollReveal delay={0.05}>
+              <h2 className="font-display text-4xl leading-[1.05] tracking-[-0.01em] text-ink sm:text-5xl lg:text-6xl">
+                <RevealText text="Una selección de nuestro trabajo." accentWords={2} />
+              </h2>
+            </ScrollReveal>
+          </div>
+          <ScrollReveal delay={0.15}>
+            <a
+              href={SITE.instagram}
+              target="_blank"
+              rel="noopener noreferrer"
+              data-cursor-hover
+              className="group inline-flex items-center gap-2 text-sm text-stone-600 transition-colors hover:text-ink"
+            >
+              <span className="link-underline">Más trabajos en {SITE.instagramHandle}</span>
+              <ArrowUpRight size={16} strokeWidth={1.4} className="transition-transform duration-500 ease-premium group-hover:-translate-y-0.5 group-hover:translate-x-0.5" />
+            </a>
           </ScrollReveal>
         </div>
 
-        <div className="mt-16 grid grid-cols-1 gap-4 sm:grid-cols-2 lg:mt-20 lg:grid-cols-3 lg:gap-5">
+        <div className="mt-16 columns-1 gap-5 sm:columns-2 lg:mt-20 lg:columns-3 lg:gap-6">
           {GALLERY.map((item, i) => (
-            <ScrollReveal key={item.title} delay={(i % 3) * 0.08}>
-              <TiltCard className="aspect-[4/5]" maxTilt={5}>
-                <button
-                  type="button"
-                  onClick={() => setActiveIndex(i)}
-                  data-cursor-hover
-                  className="group relative block h-full w-full overflow-hidden rounded-[2px] text-left"
-                >
-                  <Image
-                    src={item.image}
-                    alt={item.title}
-                    fill
-                    sizes="(min-width: 1024px) 32vw, (min-width: 640px) 46vw, 92vw"
-                    className="object-cover transition-transform duration-[1200ms] ease-premium group-hover:scale-[1.1]"
-                  />
-                  <div className="absolute inset-0 bg-ink/0 transition-colors duration-500 group-hover:bg-ink/35" />
-                  <div className="absolute inset-x-0 bottom-0 translate-y-3 p-6 opacity-0 transition-all duration-500 ease-premium group-hover:translate-y-0 group-hover:opacity-100">
-                    <p className="text-[10px] uppercase tracking-widest2 text-gold-light">
-                      {item.category}
-                    </p>
-                    <p className="mt-1 font-display text-lg text-cream">{item.title}</p>
-                  </div>
-                </button>
-              </TiltCard>
+            <ScrollReveal key={item.title} delay={(i % 3) * 0.08} className="mb-5 break-inside-avoid lg:mb-6">
+              <figure>
+                <TiltCard className={ASPECTS[i % ASPECTS.length]} maxTilt={4}>
+                  <button
+                    type="button"
+                    onClick={() => setActiveIndex(i)}
+                    data-cursor-hover
+                    aria-label={`Ampliar: ${item.title}`}
+                    className="group relative block h-full w-full overflow-hidden rounded-[3px] text-left"
+                  >
+                    <Image
+                      src={item.image}
+                      alt={item.title}
+                      fill
+                      sizes="(min-width: 1024px) 32vw, (min-width: 640px) 46vw, 92vw"
+                      className="object-cover transition-transform duration-[1200ms] ease-premium group-hover:scale-[1.06]"
+                    />
+                    <div className="absolute inset-0 bg-ink/0 transition-colors duration-500 group-hover:bg-ink/20" />
+                  </button>
+                </TiltCard>
+                <figcaption className="mt-3 flex items-baseline justify-between gap-4">
+                  <span className="font-display text-lg leading-snug text-ink">{item.title}</span>
+                  <span className="shrink-0 text-[10px] uppercase tracking-widest2 text-stone-400">
+                    {item.category}
+                  </span>
+                </figcaption>
+              </figure>
             </ScrollReveal>
           ))}
         </div>

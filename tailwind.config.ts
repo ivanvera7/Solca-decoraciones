@@ -6,7 +6,7 @@ const config: Config = {
     extend: {
       colors: {
         cream: "#FAF8F5",
-        ink: "#111111",
+        ink: "#1A1714",
         gold: {
           DEFAULT: "#B8965A",
           light: "#D4B98C",
@@ -26,7 +26,7 @@ const config: Config = {
         },
       },
       fontFamily: {
-        sans: ["var(--font-inter)", "system-ui", "sans-serif"],
+        sans: ["var(--font-sans)", "system-ui", "sans-serif"],
         display: ["var(--font-display)", "Georgia", "serif"],
       },
       letterSpacing: {
