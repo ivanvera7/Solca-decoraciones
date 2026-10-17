@@ -102,5 +102,5 @@ Convenciones, comandos y reglas para agentes de IA: [AGENTS.md](AGENTS.md).
 <br>
 
 <p align="center">
-  <sub>Hecho a mano en Paraguay · <a href="https://www.instagram.com/solcamila_manualidades">@solcamila_manualidades</a></sub>
+  <sub>Hecho a mano en Paraguay · <a href="https://www.instagram.com/solcamila_decoraciones">@solcamila_decoraciones</a></sub>
 </p>
