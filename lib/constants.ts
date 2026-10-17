@@ -4,7 +4,7 @@ export const SITE = {
   tagline: "Diseñamos espacios que inspiran.",
   description:
     "Decoración de interiores, ambientación de eventos y manualidades con acabados de alta calidad. Regalos personalizados y maquetas hechas a mano, con diseño cuidado en cada detalle.",
-  url: "https://solcadecoraciones.com",
+  url: "https://solca-decoraciones.vercel.app",
   locale: "es_PY",
   instagram: "https://www.instagram.com/solcamila_manualidades",
   instagramHandle: "@solcamila_manualidades",
@@ -108,13 +108,8 @@ export type Testimonial = {
   role: string;
 };
 
-export const TESTIMONIALS: Testimonial[] = [
-  {
-    quote: "Próximamente compartiremos aquí las experiencias de nuestros clientes.",
-    author: "Espacio reservado",
-    role: "Reseña próximamente",
-  },
-];
+// The Testimonials section hides itself while this list is empty: add real reviews here.
+export const TESTIMONIALS: Testimonial[] = [];
 
 export const SERVICE_OPTIONS = [
   "Decoración de interiores",
